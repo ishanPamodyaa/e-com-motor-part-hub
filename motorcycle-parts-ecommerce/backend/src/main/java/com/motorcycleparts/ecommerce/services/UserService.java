@@ -100,7 +100,7 @@ public class UserService {
         userRepository.save(user);
         
         // Send password reset email
-        emailService.sendPasswordResetEmail(user, resetToken);
+        emailService.sendPasswordResetEmail(user.getEmail(), resetToken);
     }
 
     @Transactional

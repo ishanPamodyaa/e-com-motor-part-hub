@@ -1,24 +1,17 @@
 package com.motorcycleparts.ecommerce.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PaymentRequest {
-    @NotBlank
-    private String paymentMethodId;
-    
-    @NotNull
     private BigDecimal amount;
-    
-    @NotBlank
     private String currency;
-    
-    @NotBlank
     private String description;
-    
     private Long orderId;
 } 

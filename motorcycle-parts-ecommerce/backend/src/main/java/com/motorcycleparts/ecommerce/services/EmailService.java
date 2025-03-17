@@ -1,136 +1,99 @@
 package com.motorcycleparts.ecommerce.services;
 
-import com.motorcycleparts.ecommerce.models.Order;
-import com.motorcycleparts.ecommerce.models.OrderItem;
-import com.motorcycleparts.ecommerce.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.motorcycleparts.ecommerce.dto.TrackingInfoDto;
+import com.motorcycleparts.ecommerce.models.Order;
+
 @Service
+@RequiredArgsConstructor
 public class EmailService {
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
+    private final TemplateEngine templateEngine;
 
-    @Autowired
-    private TemplateEngine templateEngine;
+    public void sendEmail(String to, String subject, String templateName, Map<String, Object> variables) {
+        try {
+            Context context = new Context();
+            context.setVariables(variables);
 
-    @Value("${spring.mail.username}")
-    private String fromEmail;
+            String htmlContent = templateEngine.process(templateName, context);
 
-    @Value("${admin.email:admin@motorcycleparts.com}")
-    private String adminEmail;
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(htmlContent, true);
+
+            mailSender.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException("Failed to send email", e);
+        }
+    }
+
+    public void sendWelcomeEmail(String to, String username) {
+        Map<String, Object> variables = Map.of(
+                "username", username,
+                "loginUrl", "http://localhost:4200/login"
+        );
+        sendEmail(to, "Welcome to Motorcycle Parts E-commerce", "welcome-email", variables);
+    }
+
+    public void sendPasswordResetEmail(String to, String resetToken) {
+        Map<String, Object> variables = Map.of(
+                "resetToken", resetToken,
+                "resetUrl", "http://localhost:4200/reset-password?token=" + resetToken
+        );
+        sendEmail(to, "Password Reset Request", "password-reset-email", variables);
+    }
+
+    public void sendOrderConfirmationEmail(String to, String orderNumber, Map<String, Object> orderDetails) {
+        Map<String, Object> variables = Map.of(
+                "orderNumber", orderNumber,
+                "orderDetails", orderDetails
+        );
+        sendEmail(to, "Order Confirmation - " + orderNumber, "order-confirmation-email", variables);
+    }
+    
     public void sendOrderNotification(Order order) {
-        try {
-            // Send notification to admin
-            MimeMessage adminMessage = mailSender.createMimeMessage();
-            MimeMessageHelper adminHelper = new MimeMessageHelper(adminMessage, true);
-            adminHelper.setFrom(fromEmail);
-            adminHelper.setTo(adminEmail);
-            adminHelper.setSubject("New Order Placed: #" + order.getOrderNumber());
-            
-            Context adminContext = new Context();
-            adminContext.setVariable("order", order);
-            adminContext.setVariable("items", order.getItems());
-            adminContext.setVariable("customer", order.getUser());
-            
-            String adminContent = templateEngine.process("admin-order-notification", adminContext);
-            adminHelper.setText(adminContent, true);
-            
-            mailSender.send(adminMessage);
-            
-            // Send confirmation to customer
-            MimeMessage customerMessage = mailSender.createMimeMessage();
-            MimeMessageHelper customerHelper = new MimeMessageHelper(customerMessage, true);
-            customerHelper.setFrom(fromEmail);
-            customerHelper.setTo(order.getUser().getEmail());
-            customerHelper.setSubject("Order Confirmation: #" + order.getOrderNumber());
-            
-            Context customerContext = new Context();
-            customerContext.setVariable("order", order);
-            customerContext.setVariable("items", order.getItems());
-            customerContext.setVariable("customer", order.getUser());
-            
-            String customerContent = templateEngine.process("customer-order-confirmation", customerContext);
-            customerHelper.setText(customerContent, true);
-            
-            mailSender.send(customerMessage);
-        } catch (MessagingException e) {
-            throw new RuntimeException("Failed to send email notification", e);
-        }
+        Map<String, Object> orderDetails = new HashMap<>();
+        orderDetails.put("orderNumber", order.getOrderNumber());
+        orderDetails.put("totalAmount", order.getTotal());
+        orderDetails.put("items", order.getItems());
+        orderDetails.put("shippingAddress", order.getShippingAddress());
+        orderDetails.put("paymentMethod", order.getPaymentMethod());
+        orderDetails.put("paymentStatus", order.getStatus().toString());
+        
+        sendOrderConfirmationEmail(order.getUser().getEmail(), order.getOrderNumber(), orderDetails);
     }
-
+    
     public void sendOrderStatusUpdate(Order order) {
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(fromEmail);
-            helper.setTo(order.getUser().getEmail());
-            helper.setSubject("Order Status Update: #" + order.getOrderNumber());
-            
-            Context context = new Context();
-            context.setVariable("order", order);
-            context.setVariable("status", order.getStatus().toString());
-            context.setVariable("customer", order.getUser());
-            
-            String content = templateEngine.process("order-status-update", context);
-            helper.setText(content, true);
-            
-            mailSender.send(message);
-        } catch (MessagingException e) {
-            throw new RuntimeException("Failed to send email notification", e);
+        TrackingInfoDto trackingInfo = TrackingInfoDto.fromOrderNotes(order.getNotes());
+        
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("orderNumber", order.getOrderNumber());
+        variables.put("status", order.getStatus());
+        variables.put("statusDate", java.time.LocalDateTime.now());
+        
+        if (trackingInfo != null) {
+            variables.put("trackingInfo", trackingInfo);
         }
+        
+        sendEmail(
+            order.getUser().getEmail(),
+            "Order Status Update - " + order.getOrderNumber(),
+            "order-status-update-email",
+            variables
+        );
     }
-
-    public void sendWelcomeEmail(User user) {
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(fromEmail);
-            helper.setTo(user.getEmail());
-            helper.setSubject("Welcome to Motorcycle Parts E-commerce");
-            
-            Context context = new Context();
-            context.setVariable("user", user);
-            
-            String content = templateEngine.process("welcome-email", context);
-            helper.setText(content, true);
-            
-            mailSender.send(message);
-        } catch (MessagingException e) {
-            throw new RuntimeException("Failed to send welcome email", e);
-        }
-    }
-
-    public void sendPasswordResetEmail(User user, String resetToken) {
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(fromEmail);
-            helper.setTo(user.getEmail());
-            helper.setSubject("Password Reset Request");
-            
-            Context context = new Context();
-            context.setVariable("user", user);
-            context.setVariable("resetToken", resetToken);
-            
-            String content = templateEngine.process("password-reset", context);
-            helper.setText(content, true);
-            
-            mailSender.send(message);
-        } catch (MessagingException e) {
-            throw new RuntimeException("Failed to send password reset email", e);
-        }
-    }
-} 
+}

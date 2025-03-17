@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentResponse {
-    private String paymentId;
+    private String paymentIntentId;
     private String clientSecret;
     private String status;
     private String message;

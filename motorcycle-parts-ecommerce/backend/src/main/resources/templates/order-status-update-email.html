@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Order Status Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+
+        .status-box {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .status-processing {
+            background-color: #cff4fc;
+            color: #055160;
+        }
+
+        .status-shipped {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-delivered {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            font-weight: bold;
+        }
+
+        .status-cancelled {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+
+        .tracking-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Order Status Update</h1>
+        <p>Order Number: <span th:text="${orderNumber}">#123456</span></p>
+    </div>
+
+    <div class="content">
+        <p>We're writing to inform you that the status of your order has been updated.</p>
+
+        <div class="status-box" th:classappend="${'status-' + #strings.toLowerCase(status)}">
+            <h2>Your order is now: <span th:text="${status}">PROCESSING</span></h2>
+            <p>Updated on: <span th:text="${#temporals.format(statusDate, 'dd MMM yyyy HH:mm')}">01 Jan 2023
+                    12:00</span></p>
+        </div>
+
+        <div class="tracking-info" th:if="${trackingInfo != null and trackingInfo != ''}">
+            <h3>Tracking Information</h3>
+            <p>Tracking Number: <span th:text="${trackingInfo.trackingNumber}">TN123456789</span></p>
+            <p>Carrier: <span th:text="${trackingInfo.carrier}">FedEx</span></p>
+            <p>
+                <a th:href="${trackingInfo.trackingUrl}" target="_blank">Track Your Package</a>
+            </p>
+        </div>
+
+        <p>You can also check the status of your order by logging into your account on our website.</p>
+
+        <p>If you have any questions about your order, please don't hesitate to contact our customer support team.</p>
+
+        <p>Best regards,<br>The Motorcycle Parts E-commerce Team</p>
+    </div>
+
+    <div class="footer">
+        <p>This is an automated message, please do not reply to this email.</p>
+    </div>
+</body>
+
+</html>
