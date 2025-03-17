@@ -1,0 +1,134 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">User Profile</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Alert Messages -->
+                    <div *ngIf="message" class="alert" [ngClass]="{'alert-success': isSuccess, 'alert-danger': isError}"
+                        role="alert">
+                        {{ message }}
+                    </div>
+
+                    <!-- Profile Information -->
+                    <div *ngIf="!isEditing" class="mb-4">
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Username:</div>
+                            <div class="col-md-8">{{ currentUser.username }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Name:</div>
+                            <div class="col-md-8">{{ currentUser.firstName }} {{ currentUser.lastName }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Email:</div>
+                            <div class="col-md-8">{{ currentUser.email }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Phone:</div>
+                            <div class="col-md-8">{{ currentUser.phone || 'Not provided' }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Roles:</div>
+                            <div class="col-md-8">
+                                <span *ngFor="let role of currentUser.roles" class="badge bg-secondary me-1">
+                                    {{ role.replace('ROLE_', '') }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="d-flex mt-4">
+                            <button class="btn btn-primary me-2" (click)="toggleEdit()">
+                                <i class="bi bi-pencil-square"></i> Edit Profile
+                            </button>
+                            <button class="btn btn-secondary" (click)="toggleChangePassword()">
+                                <i class="bi bi-key"></i> Change Password
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Edit Profile Form -->
+                    <form *ngIf="isEditing" [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" formControlName="firstName">
+                            <div *ngIf="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched"
+                                class="text-danger">
+                                First name is required
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" formControlName="lastName">
+                            <div *ngIf="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched"
+                                class="text-danger">
+                                Last name is required
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" formControlName="email">
+                            <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched"
+                                class="text-danger">
+                                Valid email is required
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="text" class="form-control" id="phone" formControlName="phone">
+                        </div>
+                        <div class="d-flex">
+                            <button type="submit" class="btn btn-success me-2" [disabled]="profileForm.invalid">
+                                <i class="bi bi-check-circle"></i> Save Changes
+                            </button>
+                            <button type="button" class="btn btn-secondary" (click)="toggleEdit()">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Change Password Form -->
+                    <form *ngIf="isChangingPassword" [formGroup]="passwordForm" (ngSubmit)="changePassword()"
+                        class="mt-4">
+                        <h4 class="mb-3">Change Password</h4>
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">Current Password</label>
+                            <input type="password" class="form-control" id="currentPassword"
+                                formControlName="currentPassword">
+                            <div *ngIf="passwordForm.get('currentPassword')?.invalid && passwordForm.get('currentPassword')?.touched"
+                                class="text-danger">
+                                Current password is required
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">New Password</label>
+                            <input type="password" class="form-control" id="newPassword" formControlName="newPassword">
+                            <div *ngIf="passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched"
+                                class="text-danger">
+                                New password must be at least 6 characters
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                            <input type="password" class="form-control" id="confirmPassword"
+                                formControlName="confirmPassword">
+                            <div *ngIf="passwordForm.get('confirmPassword')?.invalid && passwordForm.get('confirmPassword')?.touched"
+                                class="text-danger">
+                                Confirm password is required
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <button type="submit" class="btn btn-success me-2" [disabled]="passwordForm.invalid">
+                                <i class="bi bi-check-circle"></i> Update Password
+                            </button>
+                            <button type="button" class="btn btn-secondary" (click)="toggleChangePassword()">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
