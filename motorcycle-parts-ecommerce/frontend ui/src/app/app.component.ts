@@ -8,6 +8,7 @@ import {SaleComponent} from './component/page/sale/sale.component';
 import {SignUpComponent} from './component/sign-up/sign-up.component';
 import {ProductComponent} from './component/product/product.component';
 import {SingleProductComponent} from './component/single-product/single-product.component';
+import {ShoppingCartComponent} from './component/shopping-cart/shopping-cart.component';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ import {SingleProductComponent} from './component/single-product/single-product.
     SignUpComponent,
     ProductComponent,
     SingleProductComponent,
+    ShoppingCartComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

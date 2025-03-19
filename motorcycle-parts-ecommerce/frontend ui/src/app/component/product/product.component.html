@@ -1,268 +1,239 @@
-<div class="container d-flex justify-content-center mt-50 mb-50">
 
-  <div class="row">
-    <div class="col-md-3 mt-2">
+<div class="container py-5">
+  <!-- Top Bar -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">Product Collection</h4>
+    <div class="d-flex gap-2 align-items-center">
+      <span class="text-muted">Sort by:</span>
+      <button class="sort-btn">
+        Newest <i class="bi bi-chevron-down ms-2"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Filters Sidebar -->
+    <div class="col-lg-3">
+      <div class="filter-sidebar p-4 shadow-sm">
+        <div class="filter-group">
+          <h6 class="mb-3">Categories</h6>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="bearing">
+            <label class="form-check-label" for="bearing">Bearing</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="driveBeltsPulleys">
+            <label class="form-check-label" for="driveBeltsPulleys">Drive Belts & Pulleys</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="chainSprocketKit">
+            <label class="form-check-label" for="chainSprocketKit">Chain Sprocket Kit</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="gasketsSeals">
+            <label class="form-check-label" for="gasketsSeals">Gaskets & Seals</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="engineParts">
+            <label class="form-check-label" for="engineParts">Engine Parts</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="footControlsPegs">
+            <label class="form-check-label" for="footControlsPegs">Foot Controls & Pegs</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="handlebarsControls">
+            <label class="form-check-label" for="handlebarsControls">Handlebars & Controls</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="suspension">
+            <label class="form-check-label" for="suspension">Suspension</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="cablesHoses">
+            <label class="form-check-label" for="cablesHoses">Cables & Hoses</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="lighting">
+            <label class="form-check-label" for="lighting">Lighting</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="ignitionSystemParts">
+            <label class="form-check-label" for="ignitionSystemParts">Ignition System Parts</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="electronicParts">
+            <label class="form-check-label" for="electronicParts">Electronic Parts</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="frameBody">
+            <label class="form-check-label" for="frameBody">Frame & Body</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="airIntakeFilters">
+            <label class="form-check-label" for="airIntakeFilters">Air Intake & Filters</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="brakeDiscsPads">
+            <label class="form-check-label" for="brakeDiscsPads">Brake Discs and Pads</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="tiresWheels">
+            <label class="form-check-label" for="tiresWheels">Tires and Wheels</label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="serviceKits">
+            <label class="form-check-label" for="serviceKits">Service Kits</label>
+          </div>
+
+        </div>
 
 
-      <div class="card">
-        <div class="card-body">
-          <div class="card-img-actions">
-
-            <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1562074043/234.png" class="card-img img-fluid" width="96" height="350" alt="">
-
-
+        <div class="filter-group">
+          <h6 class="mb-3">Colors</h6>
+          <div class="d-flex gap-2">
+            <div class="color-option selected" style="background: #000000;"></div>
+            <div class="color-option" style="background: #dc2626;"></div>
+            <div class="color-option" style="background: #2563eb;"></div>
+            <div class="color-option" style="background: #16a34a;"></div>
           </div>
         </div>
 
-        <div class="card-body bg-light text-center">
-          <div class="mb-2">
-            <h6 class="font-weight-semibold mb-2">
-              <a href="#" class="text-default mb-2" data-abc="true">Toshiba Notebook with 500GB HDD & 8GB RAM</a>
-            </h6>
-
-            <a href="#" class="text-muted" data-abc="true">Laptops & Notebooks</a>
+        <div class="filter-group">
+          <h6 class="mb-3">Rating</h6>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="rating" id="rating4">
+            <label class="form-check-label" for="rating4">
+              <i class="bi bi-star-fill text-warning"></i> 4 & above
+            </label>
           </div>
-
-          <h3 class="mb-0 font-weight-semibold">$250.99</h3>
-
-          <div>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="rating" id="rating3">
+            <label class="form-check-label" for="rating3">
+              <i class="bi bi-star-fill text-warning"></i> 3 & above
+            </label>
           </div>
-
-          <div class="text-muted mb-3">34 reviews</div>
-
-          <button type="button" class="btn bg-cart"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
-
-
         </div>
+
+        <button class="btn btn-outline-primary w-100">Apply Filters</button>
       </div>
-
-
-
-
     </div>
 
-
-    <div class="col-md-3 mt-2">
-
-
-      <div class="card">
-        <div class="card-body">
-          <div class="card-img-actions">
-
-            <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1562074043/234.png" class="card-img img-fluid" width="96" height="350" alt="">
-
-
+    <!-- Product Grid -->
+    <div class="col-lg-9">
+      <div class="row g-4">
+        <!-- Product Card 1 -->
+        <div class="col-md-4">
+          <div class="product-card shadow-sm">
+            <div class="position-relative">
+              <img src="https://via.placeholder.com/300x200" class="product-image w-100" alt="Product">
+              <span class="discount-badge">-20%</span>
+              <button class="wishlist-btn">
+                <i class="bi bi-heart"></i>
+              </button>
+            </div>
+            <div class="p-3">
+              <span class="category-badge mb-2 d-inline-block">Electronics</span>
+              <h6 class="mb-1">Wireless Headphones</h6>
+              <div class="rating-stars mb-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="text-muted ms-2">(4.5)</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price">$129.99</span>
+                <button class="btn cart-btn">
+                  <i class="bi bi-cart-plus"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="card-body bg-light text-center">
-          <div class="mb-2">
-            <h6 class="font-weight-semibold mb-2">
-              <a href="#" class="text-default mb-2" data-abc="true">Toshiba Notebook with 500GB HDD & 8GB RAM</a>
-            </h6>
-
-            <a href="#" class="text-muted" data-abc="true">Laptops & Notebooks</a>
-          </div>
-
-          <h3 class="mb-0 font-weight-semibold">$250.99</h3>
-
-          <div>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-          </div>
-
-          <div class="text-muted mb-3">34 reviews</div>
-
-          <button type="button" class="btn bg-cart"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
-
-
-        </div>
-      </div>
-
-
-
-
-    </div>
-
-    <div class="col-md-3 mt-2">
-
-
-      <div class="card">
-        <div class="card-body">
-          <div class="card-img-actions">
-
-            <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1562074043/234.png" class="card-img img-fluid" width="96" height="350" alt="">
-
-
+        <!-- Product Card 2 -->
+        <div class="col-md-4">
+          <div class="product-card shadow-sm">
+            <div class="position-relative">
+              <img src="https://via.placeholder.com/300x200" class="product-image w-100" alt="Product">
+              <button class="wishlist-btn">
+                <i class="bi bi-heart"></i>
+              </button>
+            </div>
+            <div class="p-3">
+              <span class="category-badge mb-2 d-inline-block">Electronics</span>
+              <h6 class="mb-1">Smart Watch Pro</h6>
+              <div class="rating-stars mb-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+                <span class="text-muted ms-2">(4.0)</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price">$299.99</span>
+                <button class="btn cart-btn">
+                  <i class="bi bi-cart-plus"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="card-body bg-light text-center">
-          <div class="mb-2">
-            <h6 class="font-weight-semibold mb-2">
-              <a href="#" class="text-default mb-2" data-abc="true">Toshiba Notebook with 500GB HDD & 8GB RAM</a>
-            </h6>
-
-            <a href="#" class="text-muted" data-abc="true">Laptops & Notebooks</a>
-          </div>
-
-          <h3 class="mb-0 font-weight-semibold">$250.99</h3>
-
-          <div>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-          </div>
-
-          <div class="text-muted mb-3">34 reviews</div>
-
-          <button type="button" class="btn bg-cart"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
-
-
-        </div>
-      </div>
-
-
-
-
-    </div>
-
-
-    <div class="col-md-3 mt-2">
-
-
-      <div class="card">
-        <div class="card-body">
-          <div class="card-img-actions">
-
-            <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1562074043/234.png" class="card-img img-fluid" width="96" height="350" alt="">
-
-
+        <!-- Product Card 3 -->
+        <div class="col-md-4">
+          <div class="product-card shadow-sm">
+            <div class="position-relative">
+              <img src="https://via.placeholder.com/300x200" class="product-image w-100" alt="Product">
+              <span class="discount-badge">-15%</span>
+              <button class="wishlist-btn">
+                <i class="bi bi-heart"></i>
+              </button>
+            </div>
+            <div class="p-3">
+              <span class="category-badge mb-2 d-inline-block">Accessories</span>
+              <h6 class="mb-1">Leather Wallet</h6>
+              <div class="rating-stars mb-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="text-muted ms-2">(5.0)</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price">$59.99</span>
+                <button class="btn cart-btn">
+                  <i class="bi bi-cart-plus"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="card-body bg-light text-center">
-          <div class="mb-2">
-            <h6 class="font-weight-semibold mb-2">
-              <a href="#" class="text-default mb-2" data-abc="true">Toshiba Notebook with 500GB HDD & 8GB RAM</a>
-            </h6>
+        <!-- More product cards can be added here -->
 
-            <a href="#" class="text-muted" data-abc="true">Laptops & Notebooks</a>
-          </div>
-
-          <h3 class="mb-0 font-weight-semibold">$250.99</h3>
-
-          <div>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-          </div>
-
-          <div class="text-muted mb-3">34 reviews</div>
-
-          <button type="button" class="btn bg-cart"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
-
-
-        </div>
-      </div>
-
-
-
-
-    </div>
-
-
-    <div class="col-md-3 mt-2">
-
-
-      <div class="card">
-        <div class="card-body">
-          <div class="card-img-actions">
-
-            <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1562074043/234.png" class="card-img img-fluid" width="96" height="350" alt="">
-
-
-          </div>
-        </div>
-
-        <div class="card-body bg-light text-center">
-          <div class="mb-2">
-            <h6 class="font-weight-semibold mb-2">
-              <a href="#" class="text-default mb-2" data-abc="true">Toshiba Notebook with 500GB HDD & 8GB RAM</a>
-            </h6>
-
-            <a href="#" class="text-muted" data-abc="true">Laptops & Notebooks</a>
-          </div>
-
-          <h3 class="mb-0 font-weight-semibold">$250.99</h3>
-
-          <div>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-          </div>
-
-          <div class="text-muted mb-3">34 reviews</div>
-
-          <button type="button" class="btn bg-cart"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
-
-
-        </div>
-      </div>
-
-
-
-
-    </div>
-
-
-    <div class="col-md-3 mt-2">
-
-
-      <div class="card">
-        <div class="card-body">
-          <div class="card-img-actions">
-
-            <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1562074043/234.png" class="card-img img-fluid" width="96" height="350" alt="">
-
-
-          </div>
-        </div>
-
-        <div class="card-body bg-light text-center">
-          <div class="mb-2">
-            <h6 class="font-weight-semibold mb-2">
-              <a href="#" class="text-default mb-2" data-abc="true">Toshiba Notebook with 500GB HDD & 8GB RAM</a>
-            </h6>
-
-            <a href="#" class="text-muted" data-abc="true">Laptops & Notebooks</a>
-          </div>
-
-          <h3 class="mb-0 font-weight-semibold">$250.99</h3>
-
-          <div>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-            <i class="fa fa-star star"></i>
-          </div>
-
-          <div class="text-muted mb-3">34 reviews</div>
-
-          <button type="button" class="btn bg-cart"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
-        </div>
       </div>
     </div>
   </div>
 </div>
-
-
