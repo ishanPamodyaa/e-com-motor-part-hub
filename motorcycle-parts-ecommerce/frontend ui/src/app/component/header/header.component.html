@@ -12,18 +12,19 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+
+
                     <li>
+                      <i class="bi bi-house fs-4 me-2 d-flex justify-content-center align-items-center"></i>
                         <a href="#" class="nav-link text-secondary">
-                            <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                                <use xlink:href="#home" />
-                            </svg>
-                            Home
+                          <samp>Home</samp>
+
                         </a>
                     </li>
 
 
                     <li class="nav-item dropdown">
-                        <i class="bi bi-view-list" fs-4 me-2 d-flex justify-content-center align-items-center></i>
+                        <i class="bi bi-view-list fs-4 me-2 d-flex justify-content-center align-items-center"></i>
                         <a class="dropdown-toggle nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
 
                             <span>Catogery</span>
@@ -61,21 +62,22 @@
                         </a>
                     </li>
                     <li>
+                      <i class="bi-person-circle fs-4 me-2 d-flex justify-content-center align-items-center"></i>
                         <a href="#" class="nav-link text-white">
-                            <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                                <use xlink:href="#people-circle" />
-                            </svg>
-
-                            Profile
+                          <span>Profile</span>
                         </a>
                     </li>
-                    <div class="header-actions">
-                        <a routerLink="/cart" class="action-item">
-                            <i class="bi bi-cart3"></i>
-                            <span class="badge bg-danger">0</span>
+                    <div class="">
+                      <i class="bi bi-cart3 fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+
+                        <a routerLink="/cart" class="action-item nav-link text-white" >
+                          <span class="badge bg-danger">0</span>
                         </a>
-                        <a routerLink="/wishlist" class="action-item">
-                            <i class="bi bi-heart"></i>
+                      </div>
+                  <div>
+                      <i class="bi bi-heart fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+                        <a routerLink="/wishlist" class="action-item nav-link text-white">
+                          WishList
                         </a>
                     </div>
                 </ul>
