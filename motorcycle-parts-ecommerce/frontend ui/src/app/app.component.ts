@@ -9,6 +9,7 @@ import {SignUpComponent} from './component/sign-up/sign-up.component';
 import {ProductComponent} from './component/product/product.component';
 import {SingleProductComponent} from './component/single-product/single-product.component';
 import {ShoppingCartComponent} from './component/shopping-cart/shopping-cart.component';
+import {AddProductComponent} from './component/add-product/add-product.component';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ import {ShoppingCartComponent} from './component/shopping-cart/shopping-cart.com
     ProductComponent,
     SingleProductComponent,
     ShoppingCartComponent,
+    AddProductComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
