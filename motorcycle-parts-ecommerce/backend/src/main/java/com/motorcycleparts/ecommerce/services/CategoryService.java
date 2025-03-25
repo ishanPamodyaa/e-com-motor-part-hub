@@ -1,6 +1,7 @@
 package com.motorcycleparts.ecommerce.services;
 
 import com.motorcycleparts.ecommerce.dto.CategoryDTO;
+import com.motorcycleparts.ecommerce.exception.ResourceNotFoundException;
 import com.motorcycleparts.ecommerce.models.Category;
 import com.motorcycleparts.ecommerce.repositories.CategoryRepository;
 import org.modelmapper.ModelMapper;
@@ -36,7 +37,7 @@ public class CategoryService {
 
     public CategoryDTO getCategoryById(Long id) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
         return convertToDTO(category);
     }
 
@@ -44,10 +45,13 @@ public class CategoryService {
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
         Category category = convertToEntity(categoryDTO);
         
+        // Handle parent relationship explicitly
         if (categoryDTO.getParentId() != null) {
             Category parent = categoryRepository.findById(categoryDTO.getParentId())
-                    .orElseThrow(() -> new RuntimeException("Parent category not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("Parent category not found"));
             category.setParent(parent);
+        } else {
+            category.setParent(null);
         }
         
         Category savedCategory = categoryRepository.save(category);
@@ -57,14 +61,14 @@ public class CategoryService {
     @Transactional
     public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO) {
         Category existingCategory = categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
         
         existingCategory.setName(categoryDTO.getName());
         existingCategory.setDescription(categoryDTO.getDescription());
         
         if (categoryDTO.getParentId() != null) {
             Category parent = categoryRepository.findById(categoryDTO.getParentId())
-                    .orElseThrow(() -> new RuntimeException("Parent category not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("Parent category not found"));
             existingCategory.setParent(parent);
         } else {
             existingCategory.setParent(null);
@@ -77,7 +81,7 @@ public class CategoryService {
     @Transactional
     public void deleteCategory(Long id) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
         categoryRepository.delete(category);
     }
 
@@ -114,6 +118,11 @@ public class CategoryService {
     }
 
     private Category convertToEntity(CategoryDTO categoryDTO) {
-        return modelMapper.map(categoryDTO, Category.class);
+        Category category = new Category();
+        category.setId(categoryDTO.getId());
+        category.setName(categoryDTO.getName());
+        category.setDescription(categoryDTO.getDescription());
+        // Parent will be set separately in the service methods
+        return category;
     }
 } 

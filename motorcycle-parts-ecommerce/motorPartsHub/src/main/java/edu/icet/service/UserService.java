@@ -1,4 +1,9 @@
-package edu.icet.service.impl;
+package edu.icet.service;
 
-public class UserService {
+import edu.icet.dto.UserDTO;
+
+public interface UserService {
+
+    public UserDTO createUser(UserDTO userDTO);
+
 }

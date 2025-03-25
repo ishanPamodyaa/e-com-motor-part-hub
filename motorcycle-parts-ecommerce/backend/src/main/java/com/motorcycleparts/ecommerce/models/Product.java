@@ -37,6 +37,7 @@ public class Product {
     private Integer stockQuantity;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "product_condition")
     private ProductCondition condition;
 
     @Size(max = 100)

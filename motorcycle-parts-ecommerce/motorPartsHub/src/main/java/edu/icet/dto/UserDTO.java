@@ -1,49 +1,32 @@
-package com.motorcycleparts.ecommerce.dto;
+package edu.icet.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-//import javax.validation.constraints.Email;
-//import javax.validation.constraints.NotBlank;
-//import javax.validation.constraints.Size;
+import edu.icet.entity.Address;
+
+import edu.icet.utility.UserRole;
+import lombok.*;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 
 @Data
-@Getter
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO {
+
     private Long id;
-
-    @NotBlank(message = "Username is required")
-    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
+    private String nic;
     private String username;
-
-    @NotBlank(message = "Email is required")
-    @Email(message = "Please provide a valid email address")
     private String email;
-
-    @NotBlank(message = "Password is required")
-    @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
-
-    @NotBlank(message = "First name is required")
-    @Size(max = 50)
     private String firstName;
-
-    @NotBlank(message = "Last name is required")
-    @Size(max = 50)
     private String lastName;
-
-    @Size(max = 15)
     private String phone;
+    private boolean isEnabled = true;
+    private Set<UserRole> role = new HashSet<>(Set.of(UserRole.CUSTOMER));
 
-    private String address;
-    private String city;
-    private String state;
-    private String zipCode;
-    private String country;
-    private boolean enabled = true;
-    private String role = "USER"; // Default role
+    private List<AddressDTO> addressDTOList;
+
+
 } 

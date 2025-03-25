@@ -1,6 +1,7 @@
 package com.motorcycleparts.ecommerce.services;
 
 import com.motorcycleparts.ecommerce.dto.ProductDTO;
+import com.motorcycleparts.ecommerce.exception.ResourceNotFoundException;
 import com.motorcycleparts.ecommerce.models.Category;
 import com.motorcycleparts.ecommerce.models.Product;
 import com.motorcycleparts.ecommerce.models.Product.ProductCondition;
@@ -8,6 +9,7 @@ import com.motorcycleparts.ecommerce.models.ProductImage;
 import com.motorcycleparts.ecommerce.models.Tag;
 import com.motorcycleparts.ecommerce.repositories.CategoryRepository;
 import com.motorcycleparts.ecommerce.repositories.ProductRepository;
+import com.motorcycleparts.ecommerce.repositories.TagRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +39,9 @@ public class ProductService {
     private CategoryRepository categoryRepository;
 
     @Autowired
+    private TagRepository tagRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Value("${file.upload-dir}")
@@ -59,14 +64,14 @@ public class ProductService {
 
     public Page<ProductDTO> getProductsByCategory(Long categoryId, Pageable pageable) {
         Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
         Page<Product> products = productRepository.findByCategory(category, pageable);
         return products.map(this::convertToDTO);
     }
 
     public Page<ProductDTO> getProductsByCategoryAndCondition(Long categoryId, ProductCondition condition, Pageable pageable) {
         Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
         Page<Product> products = productRepository.findByCategoryAndCondition(category, condition, pageable);
         return products.map(this::convertToDTO);
     }
@@ -83,13 +88,13 @@ public class ProductService {
 
     public ProductDTO getProductById(Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
         return convertToDTO(product);
     }
 
     public List<ProductDTO> getSimilarProducts(Long productId) {
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
         List<Product> similarProducts = productRepository.findSimilarProducts(product.getCategory().getId(), productId);
         return similarProducts.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
@@ -98,12 +103,30 @@ public class ProductService {
     public ProductDTO createProduct(ProductDTO productDTO, List<MultipartFile> images) {
         Product product = convertToEntity(productDTO);
         
+        // Set category
         Category category = categoryRepository.findById(productDTO.getCategoryId())
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
         product.setCategory(category);
+        
+        // Handle tags - find existing or create new ones
+        if (productDTO.getTags() != null && !productDTO.getTags().isEmpty()) {
+            Set<Tag> tags = new HashSet<>();
+            for (String tagName : productDTO.getTags()) {
+                // Try to find an existing tag
+                Tag tag = tagRepository.findByName(tagName)
+                        .orElseGet(() -> {
+                            // Create and save a new tag if it doesn't exist
+                            Tag newTag = new Tag(tagName);
+                            return tagRepository.save(newTag);
+                        });
+                tags.add(tag);
+            }
+            product.setTags(tags);
+        }
         
         Product savedProduct = productRepository.save(product);
         
+        // Handle images
         if (images != null && !images.isEmpty()) {
             List<ProductImage> productImages = new ArrayList<>();
             for (int i = 0; i < images.size(); i++) {
@@ -125,7 +148,7 @@ public class ProductService {
     @Transactional
     public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
         Product existingProduct = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
         
         existingProduct.setName(productDTO.getName());
         existingProduct.setDescription(productDTO.getDescription());
@@ -140,8 +163,24 @@ public class ProductService {
         
         if (productDTO.getCategoryId() != null) {
             Category category = categoryRepository.findById(productDTO.getCategoryId())
-                    .orElseThrow(() -> new RuntimeException("Category not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
             existingProduct.setCategory(category);
+        }
+        
+        // Update tags
+        if (productDTO.getTags() != null) {
+            existingProduct.getTags().clear();
+            
+            for (String tagName : productDTO.getTags()) {
+                // Try to find an existing tag
+                Tag tag = tagRepository.findByName(tagName)
+                        .orElseGet(() -> {
+                            // Create and save a new tag if it doesn't exist
+                            Tag newTag = new Tag(tagName);
+                            return tagRepository.save(newTag);
+                        });
+                existingProduct.getTags().add(tag);
+            }
         }
         
         Product updatedProduct = productRepository.save(existingProduct);
@@ -151,7 +190,7 @@ public class ProductService {
     @Transactional
     public void deleteProduct(Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
         productRepository.delete(product);
     }
 
@@ -203,16 +242,19 @@ public class ProductService {
     }
 
     private Product convertToEntity(ProductDTO productDTO) {
-        Product product = modelMapper.map(productDTO, Product.class);
-        
-        if (productDTO.getTags() != null && !productDTO.getTags().isEmpty()) {
-            Set<Tag> tags = new HashSet<>();
-            for (String tagName : productDTO.getTags()) {
-                Tag tag = new Tag(tagName);
-                tags.add(tag);
-            }
-            product.setTags(tags);
-        }
+        Product product = new Product();
+        product.setId(productDTO.getId());
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        product.setPrice(productDTO.getPrice());
+        product.setStockQuantity(productDTO.getStockQuantity());
+        product.setCondition(productDTO.getCondition());
+        product.setBrand(productDTO.getBrand());
+        product.setSuitableModels(productDTO.getSuitableModels());
+        product.setYear(productDTO.getYear());
+        product.setCapacity(productDTO.getCapacity());
+        product.setContactNumber(productDTO.getContactNumber());
+        // Category will be set separately in service methods
         
         return product;
     }
