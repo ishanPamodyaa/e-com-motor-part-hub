@@ -26,4 +26,18 @@ public class Address {
     @EqualsAndHashCode.Exclude
     private User user;
 
+
+
+
+    public  Address(String streetAddress,String city,String province, String postalCode, boolean isDefault ){
+
+        this.streetAddress=streetAddress;
+        this.city=city;
+        this.province=province;
+        this.postalCode=postalCode;
+        this.isDefault=isDefault;
+    }
+
 }
+
+

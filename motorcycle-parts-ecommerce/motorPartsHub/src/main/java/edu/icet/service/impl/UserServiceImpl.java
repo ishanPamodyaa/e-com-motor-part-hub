@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         user.setLastName(userDTO.getLastName());
         user.setPhone(userDTO.getPhone());
         user.setIsEnable(userDTO.isEnabled());
-        user.setRoles(userDTO.getRole());
+        user.setRole(userDTO.getRole());
 
          Set<Address> addressList = new HashSet<>();
         List<AddressDTO> addressDTOList = userDTO.getAddressDTOList();

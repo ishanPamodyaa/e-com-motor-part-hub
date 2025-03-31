@@ -40,6 +40,7 @@ public class AuthController {
     public static final String TOKEN_PREFIX = "Bearer";
     public static final String HEADER_STRING = "Authorization";
     private final AuthService authService;
+//    private final AuthService authService;
 
     @PostMapping("/authenticate")
     public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest,
@@ -56,7 +57,7 @@ final UserDetails userDetails = userDetailsService.loadUserByUsername(authentica
         if(optionalUser.isPresent()){
             response.getWriter().write(new JSONObject()
                     .put("userID" , optionalUser.get().getId())
-                    .put("role" , optionalUser.get().getRoles())
+                    .put("role" , optionalUser.get().getRole())
                     .toString());
             response.addHeader(HEADER_STRING ,TOKEN_PREFIX + jwt);
         }

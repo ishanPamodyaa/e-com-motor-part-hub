@@ -3,6 +3,7 @@ package edu.icet.filters;
 import edu.icet.entity.User;
 import edu.icet.service.UserService;
 import edu.icet.service.impl.UserServiceImpl;
+import edu.icet.service.jwt.UserDetailsServiceImpl;
 import edu.icet.utility.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -43,7 +44,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
 
-        UserDetails userDetail = userService.loadUserByUserName(userName);
+        UserDetails userDetail = userService.loadUserByUsername(userName);
 
         if(jwtUtil.validateToken(token , userDetail )){
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetail , null);

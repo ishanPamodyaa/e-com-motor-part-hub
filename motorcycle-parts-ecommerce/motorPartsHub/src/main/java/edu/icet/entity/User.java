@@ -27,7 +27,7 @@ public class User {
     private Boolean isEnable;
 
    @Enumerated(EnumType.STRING)
-    private UserRole roles;
+    private UserRole role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude

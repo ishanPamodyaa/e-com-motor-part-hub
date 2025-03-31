@@ -17,22 +17,22 @@ import java.util.Map;
 public class CartController {
 
 
-    final CartService cartService;
-
-    @GetMapping("/{userId}")
-    public ResponseEntity<CartDTO> getUserCart(@PathVariable Integer userId) {
-        CartDTO cart = cartService.getCartByUserId(userId);
-        return ResponseEntity.ok(cart);
-    }
-
-    @PostMapping("/{userId}/items")
-    public ResponseEntity<CartDTO> addItemToCart(
-            @PathVariable Long userId,
-            @RequestParam Long productId,
-            @RequestParam Integer quantity) {
-        CartDTO updatedCart = cartService.addItemToCart(userId, productId, quantity);
-        return ResponseEntity.ok(updatedCart);
-    }
+//    final CartService cartService;
+//
+//    @GetMapping("/{userId}")
+//    public ResponseEntity<CartDTO> getUserCart(@PathVariable Integer userId) {
+//        CartDTO cart = cartService.getCartByUserId(userId);
+//        return ResponseEntity.ok(cart);
+//    }
+//
+//    @PostMapping("/{userId}/items")
+//    public ResponseEntity<CartDTO> addItemToCart(
+//            @PathVariable Long userId,
+//            @RequestParam Long productId,
+//            @RequestParam Integer quantity) {
+//        CartDTO updatedCart = cartService.addItemToCart(userId, productId, quantity);
+//        return ResponseEntity.ok(updatedCart);
+//    }
 //
 //    @PutMapping("/{userId}/items/{productId}")
 //    public ResponseEntity<CartDTO> updateCartItem(
