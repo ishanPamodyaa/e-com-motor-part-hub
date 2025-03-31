@@ -16,7 +16,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String nic;
     private String username;
     private String email;
@@ -27,7 +27,7 @@ public class User {
     private Boolean isEnable;
 
    @Enumerated(EnumType.STRING)
-    private Set<UserRole> roles;
+    private UserRole roles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude

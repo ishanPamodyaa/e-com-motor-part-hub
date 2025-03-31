@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserDTO {
 
-    private Long id;
+    private Integer id;
     private String nic;
     private String username;
     private String email;
@@ -24,7 +24,7 @@ public class UserDTO {
     private String lastName;
     private String phone;
     private boolean isEnabled = true;
-    private Set<UserRole> role = new HashSet<>(Set.of(UserRole.CUSTOMER));
+    private UserRole role ;
 
     private List<AddressDTO> addressDTOList;
 
