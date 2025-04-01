@@ -22,6 +22,8 @@ export class SignUpComponent {
     this.signupForm = this.fb.group({
       fName: ['', Validators.required],
       lName: ['', Validators.required],
+      province: ['', Validators.required], // Add this
+      district: ['', Validators.required], // Add this
     });
   }
   submitForm() {
@@ -45,28 +47,24 @@ export class SignUpComponent {
     'Sabaragamuwa',
   ];
 
- 
-  districts: string[] =[] ;
+  districts: string[] = [];
 
-  provinceDistricts : {[key :string]:string[]
-
-  }={
-    'Western': ['Colombo', 'Gampaha', 'Kalutara'],
-    'Central': ['Kandy', 'Matale', 'Nuwara Eliya'],
-    'Southern': ['Galle', 'Matara', 'Hambantota'],
-    'Northern': ['Jaffna', 'Kilinochchi', 'Mannar', 'Mullaitivu', 'Vavuniya'],
-    'Eastern': ['Trincomalee', 'Batticaloa', 'Ampara'],
+  provinceDistrict: { [key: string]: string[] } = {
+    Western: ['Colombo', 'Gampaha', 'Kalutara'],
+    Central: ['Kandy', 'Matale', 'Nuwara Eliya'],
+    Southern: ['Galle', 'Matara', 'Hambantota'],
+    Northern: ['Jaffna', 'Kilinochchi', 'Mannar', 'Mullaitivu', 'Vavuniya'],
+    Eastern: ['Trincomalee', 'Batticaloa', 'Ampara'],
     'North Western': ['Kurunegala', 'Puttalam'],
     'North Central': ['Anuradhapura', 'Polonnaruwa'],
-    'Uva': ['Badulla', 'Monaragala'],
-    'Sabaragamuwa': ['Ratnapura', 'Kegalle']
+    Uva: ['Badulla', 'Monaragala'],
+    Sabaragamuwa: ['Ratnapura', 'Kegalle'],
   };
 
-  onProvinceChange(event: any) {
-    const province = event.target.value;
-    this.districts = this.provinceDistricts[province] || [];
-    this.signupForm.patchValue({ district: '' });
+
+
+  onProvinceChange() {
+    const selectedProvince = this.signupForm.get('province')?.value;
+    this.districts = this.provinceDistrict[selectedProvince] || [];
   }
-
-
 }
