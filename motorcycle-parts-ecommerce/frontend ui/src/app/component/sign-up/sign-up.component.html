@@ -9,20 +9,26 @@
 
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                <form class="mx-1 mx-md-4" [formGroup]="signupForm" (ngSubmit)="submitForm()" >
+                <form class="mx-1 mx-md-4" [formGroup]="signupForm" (ngSubmit)="submitForm()">
 
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
                         <input type="text" id="fName" class="form-control " />
                         <label class="form-label" for="fName">First name</label>
-                        <div class="invalid-feedback">Please enter your first name.</div>
+                        <div class="text-danger"
+                          *ngIf="signupForm.get('fName')?.invalid && signupForm.get('fName')?.touched">Please enter your
+                          first name.</div>
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
                         <input type="text" id="lName" class="form-control " />
                         <label class="form-label" for="lName">Last name</label>
+                        <div class="text-danger"
+                          *ngIf="signupForm.get('lName')?.invalid && signupForm.get('lName')?.touched">Please enter your
+                          last name.</div>
+
                       </div>
                     </div>
                   </div>
@@ -34,94 +40,109 @@
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
                         <input type="text" id="nic" class="form-control" />
                         <label class="form-label" for="nic">Nic</label>
+                        <div class="text-danger"
+                          *ngIf="signupForm.get('nic')?.invalid && signupForm.get('nic')?.touched">Enter a valid NIC (9
+                          digits + 'V' or 12 digits)
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mb-3">
 
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="number" id="cNumber" class="form-control " />
-                        <label class="form-label" for="cNumber">Contact Number</label>
+                        <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                          <input type="number" id="cNumber" class="form-control " />
+                          <label class="form-label" for="cNumber">Contact Number</label>
+                          <div class="text-danger"
+                            *ngIf="signupForm.get('cNumber').invalid && signupForm.get('cNumber').touched">
+                            Enter a valid 10-digit number.
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
 
-                  <div class="row d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                    <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                      <input type="email" id="email" class="form-control" />
-                      <label class="form-label" for="email">Your Email</label>
-                    </div>
-                  </div>
-
-                  <div class="row ">
-
-                    <div class="col-md-6 mb-3">
-
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="text" id="province" class="form-control" />
-                        <label class="form-label" for="province">Province</label>
+                      <div class="row d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                          <input type="email" id="email" class="form-control" />
+                          <label class="form-label" for="email">Your Email</label>
+                          <div class="text-danger"
+                            *ngIf="signupForm.get('email').invalid && signupForm.get('email').touched">
+                            Enter a valid email address.
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
 
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="number" id="district" class="form-control " />
-                        <label class="form-label" for="district">District</label>
+                      <div class="row ">
+
+                        <div class="col-md-6 mb-3">
+
+                          <div data-mdb-input-init class="form-outline flex-fill mb-0">
+<!--                            <input type="text" id="province" class="form-control" />-->
+
+                            <label class="form-label" for="province">Province</label>
+                            <select id="province" class=" form-control" [(ngModel)]="selectedProvince" )]>
+                              <option *ngFor="let province of provinces" [value]="province">{{province}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+
+                          <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                            <input type="number" id="district" class="form-control " />
+                            <label class="form-label" for="district">District</label>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
 
-                  <div class="row ">
+                      <div class="row ">
 
-                    <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-3">
 
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="text" id="city" class="form-control" />
-                        <label class="form-label" for="city">City</label>
+                          <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                            <input type="text" id="city" class="form-control" />
+                            <label class="form-label" for="city">City</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+
+                          <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                            <input type="number" id="postalCode" class="form-control " />
+                            <label class="form-label" for="postalCode">Postal Code</label>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="number" id="postalCode" class="form-control " />
-                        <label class="form-label" for="postalCode">Postal Code</label>
+                      <div class="row d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                          <input type="email" id="address" class="form-control" />
+                          <label class="form-label" for="address">Address</label>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="row d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                    <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                      <input type="email" id="address" class="form-control" />
-                      <label class="form-label" for="address">Address</label>
-                    </div>
-                  </div>
 
-                  <div class="row d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                    <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                      <input type="password" id="password" class="form-control" />
-                      <label class="form-label" for="password">Password</label>
-                    </div>
-                  </div>
+                      <div class="row d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                        <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                          <input type="password" id="password" class="form-control" />
+                          <label class="form-label" for="password">Password</label>
+                        </div>
+                      </div>
 
-                  <div class="row d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                    <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                      <input type="password" id="resetPassword" class="form-control" />
-                      <label class="form-label" for="resetPassword">Repeat your password</label>
-                    </div>
-                  </div>
+                      <div class="row d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                        <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                          <input type="password" id="resetPassword" class="form-control" />
+                          <label class="form-label" for="resetPassword">Repeat your password</label>
+                        </div>
+                      </div>
 
-                  <div class="form-check d-flex justify-content-center mb-5">
-                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                    <label class="form-check-label" for="form2Example3c">
-                      I agree all statements in <a href="#!">Terms of service</a>
-                    </label>
-                  </div>
+                      <div class="form-check d-flex justify-content-center mb-5">
+                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                        <label class="form-check-label" for="form2Example3c">
+                          I agree all statements in <a href="#!">Terms of service</a>
+                        </label>
+                      </div>
 
-                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg">Register</button>
-                  </div>
+                      <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                        <button type="button" data-mdb-button-init data-mdb-ripple-init
+                          class="btn btn-primary btn-lg">Register</button>
+                      </div>
 
                 </form>
 
@@ -130,7 +151,7 @@
               <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                     class="img-fluid" alt="Sample image">
+                  class="img-fluid" alt="Sample image">
 
               </div>
 

@@ -10,14 +10,17 @@ describe('SignUpComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SignUpComponent]
     })
-    .compileComponents();
 
+    .compileComponents();
     fixture = TestBed.createComponent(SignUpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
   });
+
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });
