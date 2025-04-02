@@ -45,6 +45,7 @@ public class AuthController {
     @PostMapping("/authenticate")
     public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest,
                                           HttpServletResponse response) throws IOException {
+        System.out.println("auth awooooooooooooo" + authenticationRequest+response);
 try {
     authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUserName(),authenticationRequest.getPassword()));
 }catch (BadCredentialsException e){
@@ -59,6 +60,10 @@ final UserDetails userDetails = userDetailsService.loadUserByUsername(authentica
                     .put("userID" , optionalUser.get().getId())
                     .put("role" , optionalUser.get().getRole())
                     .toString());
+
+            response.addHeader("Access Control-Expose-Header", "Authorization");
+            response.addHeader("Access Control-Allow-Header","Authorization,X-PINGOTHRE,Origin,"
+            + "X-Request-With,Content-Type, Accept,X-Custom-header");
             response.addHeader(HEADER_STRING ,TOKEN_PREFIX + jwt);
         }
 
