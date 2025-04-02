@@ -9,24 +9,30 @@
 
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
+                <div class="alert alert-success" *ngIf="successMessage">
+                  {{ successMessage }}
+                </div>
+                <div class="alert alert-danger" *ngIf="errorMessage">
+                  {{ errorMessage }}
+                </div>
                 <form class="mx-1 mx-md-4" [formGroup]="signupForm" (ngSubmit)="submitForm()">
 
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="text" id="fName" class="form-control " />
-                        <label class="form-label" for="fName">First name</label>
+                        <input type="text" id="firstName" formControlName="firstName" class="form-control " />
+                        <label class="form-label" for="firstName">First name</label>
                         <div class="text-danger"
-                          *ngIf="signupForm.get('fName')?.invalid && signupForm.get('fName')?.touched">Please enter your
+                          *ngIf="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched">Please enter your
                           first name.</div>
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="text" id="lName" class="form-control " />
-                        <label class="form-label" for="lName">Last name</label>
+                        <input type="text" id="lastName" formControlName="lastName" class="form-control " />
+                        <label class="form-label" for="lastName">Last name</label>
                         <div class="text-danger"
-                          *ngIf="signupForm.get('lName')?.invalid && signupForm.get('lName')?.touched">Please enter your
+                          *ngIf="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched">Please enter your
                           last name.</div>
 
                       </div>
@@ -38,7 +44,7 @@
                     <div class="col-md-6 mb-3">
 
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="text" id="nic" class="form-control" />
+                        <input type="text" id="nic" formControlName="nic" class="form-control" />
                         <label class="form-label" for="nic">Nic</label>
                         <div class="text-danger"
                           *ngIf="signupForm.get('nic')?.invalid && signupForm.get('nic')?.touched">Enter a valid NIC (9
@@ -49,11 +55,11 @@
                     <div class="col-md-6 mb-3">
 
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="number" id="cNumber" class="form-control " />
-                        <label class="form-label" for="cNumber">Contact Number</label>
+                        <input type="text" id="contactNumber" formControlName="contactNumber" class="form-control" />
+                        <label class="form-label" for="contactNumber">Contact Number</label>
                         <div class="text-danger"
-                          *ngIf="signupForm.get('cNumber')?.invalid && signupForm.get('cNumber')?.touched">
-                          Enter a valid 10-digit number.
+                          *ngIf="signupForm.get('contactNumber')?.invalid && signupForm.get('contactNumber')?.touched">
+                          Enter a valid Contact number.
                         </div>
                       </div>
                     </div>
@@ -61,7 +67,7 @@
                     <div class="row d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="email" id="email" class="form-control" />
+                        <input type="email" id="email" formControlName="email" class="form-control" />
                         <label class="form-label" for="email">Your Email</label>
                         <div class="text-danger"
                           *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
@@ -75,7 +81,8 @@
                       <div class="col-md-6 mb-3">
                         <div data-mdb-input-init class="form-outline flex-fill mb-0">
                           <label class="form-label" for="province">Province</label>
-                          <select id="province" class="form-control" formControlName="province" (change)="onProvinceChange()">
+                          <select id="province" class="form-control" formControlName="province"
+                            (change)="onProvinceChange()">
                             <option value="">Select Province</option>
                             <option *ngFor="let province of provinces" [value]="province">{{province}}</option>
                           </select>
@@ -100,50 +107,60 @@
                       <div class="col-md-6 mb-3">
 
                         <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                          <input type="text" id="city" class="form-control" />
+                          <input type="text" id="city" formControlName="city" class="form-control" />
                           <label class="form-label" for="city">City</label>
+                          <div class="text-danger"
+                            *ngIf="signupForm.get('city')?.invalid && signupForm.get('city')?.touched">
+                            Enter a valid City.
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-6 mb-3">
 
                         <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                          <input type="number" id="postalCode" class="form-control " />
+                          <input type="number" id="postalCode" formControlName="postalCode" class="form-control " />
                           <label class="form-label" for="postalCode">Postal Code</label>
+                          <div class="text-danger"
+                            *ngIf="signupForm.get('postalCode')?.invalid && signupForm.get('postalCode')?.touched">
+                            Enter a valid Postal Code.
+                          </div>
                         </div>
                       </div>
                     </div>
                     <div class="row d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="email" id="address" class="form-control" />
+                        <input type="email" id="address" formControlName="address" class="form-control" />
                         <label class="form-label" for="address">Address</label>
                       </div>
                     </div>
                     <div class="row d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="password" id="password" class="form-control" />
+                        <input type="password" id="password" formControlName="password" class="form-control" />
                         <label class="form-label" for="password">Password</label>
+                        <div class="text-danger"
+                          *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+                          Password must be at least 6 characters long.
+                        </div>
                       </div>
                     </div>
 
                     <div class="row d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="password" id="resetPassword" class="form-control" />
-                        <label class="form-label" for="resetPassword">Repeat your password</label>
+                        <input type="password" id="confirmPassword" formControlName="confirmPassword"
+                          class="form-control" />
+                        <label class="form-label" for="confirmPassword">Confirm password</label>
+                        <div class="text-danger"
+                          *ngIf="signupForm.get('confirmPassword')?.errors?.['passwordMismatch']">
+                          Passwords do not match
+                        </div>
                       </div>
                     </div>
 
-                    <div class="form-check d-flex justify-content-center mb-5">
-                      <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                      <label class="form-check-label" for="form2Example3c">
-                        I agree all statements in <a href="#!">Terms of service</a>
-                      </label>
-                    </div>
-
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button type="button" data-mdb-button-init data-mdb-ripple-init
+                      <button type="submit" data-mdb-button-init data-mdb-ripple-init
                         class="btn btn-primary btn-lg">Register</button>
                     </div>
                   </div>

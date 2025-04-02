@@ -66,6 +66,7 @@ final UserDetails userDetails = userDetailsService.loadUserByUsername(authentica
 
     @PostMapping("/sign-up")
     public ResponseEntity<?> signupUser (@RequestBody SignupRequest signupRequest){
+        System.out.println("awoooooooooooooooooooooooo" + signupRequest);
         if(authService.hasUserHitEmail(signupRequest.getEmail())){
             return new ResponseEntity<>("User All Ready Exists" , HttpStatus.NOT_ACCEPTABLE);
         }

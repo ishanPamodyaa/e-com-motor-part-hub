@@ -31,14 +31,49 @@ public class AuthServiceImpl implements AuthService {
     public UserDTO createUser (SignupRequest signupRequest){
         User user = new User();
 
+
         user.setEmail(signupRequest.getEmail());
         user.setUsername(signupRequest.getName());
-        user.setPassword(new BCryptPasswordEncoder().encode(signupRequest.getPassword()));
+        // Use the injected bCryptPasswordEncoder instead of creating new instance
+        user.setPassword(bCryptPasswordEncoder.encode(signupRequest.getPassword()));
         user.setRole(UserRole.CUSTOMER);
+        
+        // Add these fields from signupRequest
+        user.setFirstName(signupRequest.getFirstName());
+        user.setLastName(signupRequest.getLastName());
+        user.setPhone(signupRequest.getContactNumber());
+        user.setNic(signupRequest.getNic());
+        user.setIsEnable(true);
+
+        // Create and set address
+        Set<Address> addresses = new HashSet<>();
+        Address address = new Address(
+            signupRequest.getAddress(),
+            signupRequest.getCity(),
+            signupRequest.getProvince(),
+            signupRequest.getPostalCode(),
+            true  // Set as primary address
+        );
+        addresses.add(address);
+        user.setAddresses(addresses);
+
         User createdUser = userRepository.save(user);
 
+        // Map more fields to DTO
         UserDTO userDTO = new UserDTO();
         userDTO.setId(createdUser.getId());
+        userDTO.setEmail(createdUser.getEmail());
+        userDTO.setUsername(createdUser.getUsername());
+
+        
+        // user.setEmail(signupRequest.getEmail());
+        // user.setUsername(signupRequest.getName());
+        // user.setPassword(bCryptPasswordEncoder.encode(signupRequest.getPassword()));
+        // user.setRole(UserRole.CUSTOMER);
+        // User createdUser = userRepository.save(user);
+
+        // UserDTO userDTO = new UserDTO();
+        // userDTO.setId(createdUser.getId());
 
         return userDTO;
     }
@@ -51,28 +86,37 @@ public class AuthServiceImpl implements AuthService {
 
     @PostConstruct
     public void createAdminAccount(){
-       User adminAccount = userRepository.findByRole(UserRole.ADMIN);
-        System.out.println("dsadasadasdasda "+adminAccount);
-       if(adminAccount == null){
-          User user = new User();
-
-          user.setNic("Test Nic");
-          user.setUsername("admin@test.com");
-          user.setEmail("admin@test.com");
-          user.setPassword(new BCryptPasswordEncoder().encode("admin"));
-          user.setFirstName("admin fname");
-          user.setLastName("admin lname");
-          user.setPhone("070000000");
-          user.setIsEnable(true);
-           Set<Address> addressList = new HashSet<>();
-           addressList.add(new Address("Steet 1","City 1","Province 1","Postal code 1",true));
-           addressList.add(new Address("Steet 2","City 2","Province 2","Postal code 2",false));
-           user.setAddresses(addressList);
-          user.setRole(UserRole.ADMIN);
-
-          userRepository.save(user);
-       }
+        try {
+            User adminAccount = userRepository.findByRole(UserRole.ADMIN);
+            if(adminAccount == null){
+                User user = new User();
+                user.setNic("Test Nic");
+                user.setUsername("admin@test.com");
+                user.setEmail("admin@test.com");
+                user.setPassword(bCryptPasswordEncoder.encode("admin")); // Use injected encoder
+                user.setFirstName("admin fname");
+                user.setLastName("admin lname");
+                user.setPhone("070000000");
+                user.setIsEnable(true);
+                
+                Set<Address> addressList = new HashSet<>();
+                Address address = new Address();
+                address.setStreetAddress("Street 1");
+                address.setCity("City 1");
+                address.setProvince("Province 1");
+                address.setPostalCode("Postal code 1");
+                address.setDefault(false);
+                addressList.add(address);
+                
+                user.setAddresses(addressList);
+                user.setRole(UserRole.ADMIN);
+                
+                userRepository.save(user);
+            }
+        } catch (Exception e) {
+            // Log the error but don't prevent application startup
+            System.err.println("Error creating admin account: " + e.getMessage());
+        }
     }
-
 
 }
