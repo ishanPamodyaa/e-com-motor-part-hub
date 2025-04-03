@@ -5,6 +5,7 @@ import  {CommonModule} from '@angular/common';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
+  standalone: true,
   imports: [
     FormsModule,
     CommonModule,

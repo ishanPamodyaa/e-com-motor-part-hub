@@ -45,11 +45,14 @@ export class LoginComponent {
           console.log('Login successful:', response);
           // Navigate based on user role
           if (response.role === 'ADMIN') {
-            // this.router.navigate(['/admin']);
+            this.router.navigate(['/home']);
             console.log('admin page load');
-          } else {
-            // this.router.navigate(['']);
+          } else if (response.role === 'CUSTOMER') {
+            this.router.navigate(['/home']);
             console.log('user page load');
+          } else {
+            this.router.navigate(['']);
+            console.log('page load No Login');
           }
         },
         // When login fails

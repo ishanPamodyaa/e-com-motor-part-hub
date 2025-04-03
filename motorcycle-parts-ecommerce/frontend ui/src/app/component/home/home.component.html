@@ -1,0 +1,316 @@
+<section *ngIf="!isCustomerInLogedIn && !isAdminInLogedIn">
+    <header>
+        <div class="px-3 py-2 text-bg-dark border-bottom">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+
+                    <a href="/"
+                        class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                            <use xlink:href="#bootstrap" />
+                        </svg>
+                        <h2>MotorPartsHub</h2>
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+
+
+                        <li>
+                            <i class="bi bi-house fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+                            <a href="#" class="nav-link text-secondary">
+                                <samp>Home</samp>
+
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item dropdown">
+                            <i class="bi bi-view-list fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+                            <a class="dropdown-toggle nav-link text-white" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+
+                                <span>Catogery</span>
+
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="#">Gaskets & Seals</a></li>
+                                <li><a class="dropdown-item" href="#">Engine Parts</a></li>
+                                <li><a class="dropdown-item" href="#">Foot Controls & Pegs</a></li>
+                                <li><a class="dropdown-item" href="#">Handlebars & Controls</a></li>
+                                <li><a class="dropdown-item" href="#">Suspension</a></li>
+                                <li><a class="dropdown-item" href="#">Cables & Hoses</a></li>
+                                <li><a class="dropdown-item" href="#">Lighting</a></li>
+                                <li><a class="dropdown-item" href="#">Ignition System Parts</a></li>
+                                <li><a class="dropdown-item" href="#">Electronic Parts</a></li>
+                                <li><a class="dropdown-item" href="#">Frame & Body</a></li>
+                                <li><a class="dropdown-item" href="#">Air Intake & Filters</a></li>
+                                <li><a class="dropdown-item" href="#">Brake Discs and Pads</a></li>
+                                <li><a class="dropdown-item" href="#">Tires and Wheels</a></li>
+                                <li><a class="dropdown-item" href="#">Service Kits</a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <i class="bi bi-table fs-4 me-2 d-flex justify-content-center align-items-center "></i>
+                            <a href="#" class="nav-link text-white">
+                                <span>Products</span>
+                            </a>
+
+                        </li>
+                        <li>
+                            <i class="bi bi-grid fs-4 me-2 d-flex justify-content-center align-items-center "></i>
+                            <a href="#" class="nav-link text-white">
+                                <samp>Contact Us</samp>
+                            </a>
+                        </li>
+                        <li>
+                            <i class="bi-person-circle fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+                            <a href="#" class="nav-link text-white">
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        <div class="">
+                            <i class="bi bi-cart3 fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+
+                            <a routerLink="/cart" class="action-item nav-link text-white">
+                                <span class="badge bg-danger">0</span>
+                            </a>
+                        </div>
+                        <div>
+                            <i class="bi bi-heart fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+                            <a routerLink="/wishlist" class="action-item nav-link text-white">
+                                WishList
+                            </a>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="px-3 py-2 border-bottom mb-3">
+            <div class="container d-flex flex-wrap justify-content-center">
+                <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                </form>
+
+                <div class="text-end">
+                    <button type="button" class="btn btn-light text-dark me-2" routerLink="/login">Login</button>
+                    <button type="button" class="btn btn-primary" routerLink="/signUp">Sign-up</button>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="b-example-divider"></div>
+</section>
+
+<section *ngIf="isCustomerInLogedIn && !isAdminInLogedIn">
+    <header>
+        <div class="px-3 py-2 text-bg-dark border-bottom">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+
+                    <a href="/"
+                        class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                            <use xlink:href="#bootstrap" />
+                        </svg>
+                        <h2>MotorPartsHub</h2>
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+
+
+                        <li>
+                            <i class="bi bi-house fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+                            <a href="#" class="nav-link text-secondary">
+                                <samp>Home</samp>
+
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item dropdown">
+                            <i class="bi bi-view-list fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+                            <a class="dropdown-toggle nav-link text-white" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+
+                                <span>Catogery</span>
+
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="#">Gaskets & Seals</a></li>
+                                <li><a class="dropdown-item" href="#">Engine Parts</a></li>
+                                <li><a class="dropdown-item" href="#">Foot Controls & Pegs</a></li>
+                                <li><a class="dropdown-item" href="#">Handlebars & Controls</a></li>
+                                <li><a class="dropdown-item" href="#">Suspension</a></li>
+                                <li><a class="dropdown-item" href="#">Cables & Hoses</a></li>
+                                <li><a class="dropdown-item" href="#">Lighting</a></li>
+                                <li><a class="dropdown-item" href="#">Ignition System Parts</a></li>
+                                <li><a class="dropdown-item" href="#">Electronic Parts</a></li>
+                                <li><a class="dropdown-item" href="#">Frame & Body</a></li>
+                                <li><a class="dropdown-item" href="#">Air Intake & Filters</a></li>
+                                <li><a class="dropdown-item" href="#">Brake Discs and Pads</a></li>
+                                <li><a class="dropdown-item" href="#">Tires and Wheels</a></li>
+                                <li><a class="dropdown-item" href="#">Service Kits</a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <i class="bi bi-table fs-4 me-2 d-flex justify-content-center align-items-center "></i>
+                            <a href="#" class="nav-link text-white">
+                                <span>Products</span>
+                            </a>
+
+                        </li>
+                        <li>
+                            <i class="bi bi-grid fs-4 me-2 d-flex justify-content-center align-items-center "></i>
+                            <a href="#" class="nav-link text-white">
+                                <samp>Contact Us</samp>
+                            </a>
+                        </li>
+                        <li>
+                            <i class="bi-person-circle fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+                            <a href="#" class="nav-link text-white">
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        <div class="">
+                            <i class="bi bi-cart3 fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+
+                            <a routerLink="/cart" class="action-item nav-link text-white">
+                                <span class="badge bg-danger">0</span>
+                            </a>
+                        </div>
+                        <div>
+                            <i class="bi bi-heart fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+                            <a routerLink="/wishlist" class="action-item nav-link text-white">
+                                WishList
+                            </a>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="px-3 py-2 border-bottom mb-3">
+            <div class="container d-flex flex-wrap justify-content-center">
+                <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                </form>
+
+                <div class="text-end">
+                    <!-- Replace all logout buttons with this -->
+                    <button type="button" class="btn btn-light text-dark me-2" (click)="logout()">Log Out</button>
+                    <!-- <button type="button" class="btn btn-primary">Sign-up</button> -->
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="b-example-divider"></div>
+</section>
+
+
+
+
+<section *ngIf="isAdminInLogedIn && !isCustomerInLogedIn">
+    <header>
+        <div class="px-3 py-2 text-bg-dark border-bottom">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+
+                    <a href="/"
+                        class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                            <use xlink:href="#bootstrap" />
+                        </svg>
+                        <h2>MotorPartsHub</h2>
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                        <li><i class="bi bi-house fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+                            <a href="#" class="nav-link text-secondary">
+                                <span>Home</span>
+
+                            </a>
+                        </li>
+                        <li><i
+                                class="bi bi-speedometer2 fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+
+                            <a href="#" class="nav-link text-white">
+                                <span>Dashboard</span>
+
+                            </a>
+                        </li>
+                        <li>
+                            <i class="bi bi-list-check fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+                            <a href="#" class="nav-link text-white">
+                                <span>Orders</span>
+
+                            </a>
+                        </li>
+                        <li>
+                            <i class="bi bi-table fs-4 me-2 d-flex justify-content-center align-items-center "></i>
+                            <a href="#" class="nav-link text-white">
+                                <span>Products</span>
+                            </a>
+                        </li>
+                        <li><i class="bi bi-people fs-4 me-2 d-flex justify-content-center align-items-center"></i>
+                            <a href="#" class="nav-link text-white">
+
+                                <span>Customers</span>
+
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="px-3 py-2 border-bottom mb-3">
+            <div class="container d-flex flex-wrap justify-content-center">
+                <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                </form>
+
+                <div class="text-end">
+                    <button type="button" class="btn btn-light text-dark me-2" (click)="logout()">Log Out</button>
+                    <!-- <button type="button" class="btn btn-primary">Sign-up</button> -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="b-example-divider"></div>
+</section>
+
+<section>
+    <div
+        class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-dark">
+        <!-- Copyright -->
+        <div class="text-white mb-3 mb-md-0">
+            Copyright © 2020. All rights reserved.
+        </div>
+        <!-- Copyright -->
+
+        <!-- Right -->
+        <div>
+            <a href="#!" class="text-white me-4">
+                <i class="bi bi-facebook"></i>
+            </a>
+            <a href="#!" class="text-white me-4">
+                <i class="bi bi-twitter"></i>
+            </a>
+            <a href="#!" class="text-white me-4">
+                <i class="bi bi-google"></i>
+            </a>
+            <a href="#!" class="text-white">
+                <i class="bi bi-linkedin"></i>
+            </a>
+        </div>
+        <!-- Right -->
+    </div>
+</section>
