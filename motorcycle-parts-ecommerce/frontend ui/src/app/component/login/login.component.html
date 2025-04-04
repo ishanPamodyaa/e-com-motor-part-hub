@@ -131,10 +131,9 @@
             <input type="email" id="email" formControlName="email" class="form-control form-control-lg"
                    placeholder="Enter a valid email address" />
             <label class="form-label" for="email">Email address</label>
-            <div class="text-danger"
-                 *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-              Email address incorrect.
-            </div>
+            <div class="text-danger" *ngIf="emailError">
+              {{ emailError }}
+          </div>
           </div>
 
           <!-- Password input -->
@@ -142,6 +141,10 @@
             <input type="password" id="password" formControlName="password" class="form-control form-control-lg"
                    placeholder="Enter password" />
             <label class="form-label" for="password">Password</label>
+            <!-- Add after password input field -->
+            <div class="alert alert-danger mt-2" *ngIf="authError">
+                {{ authError }}
+            </div>
             <div class="text-danger"
                  *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
               Password incorrect.

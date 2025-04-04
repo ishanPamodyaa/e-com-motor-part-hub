@@ -25,24 +25,16 @@ export class HomeComponent implements OnInit {
   }
 
   private updateLoginStatus(): void {
-    const token = UserStorageService.getToken();
-    const userRole = UserStorageService.getUserRole();
-    
-    console.log('Current token:', token);
-    console.log('User role:', userRole);
-    
     this.isAdminInLogedIn = UserStorageService.isAdminInLogedIn();
     console.log('isAdminInLogedIn:', this.isAdminInLogedIn);
-    
     this.isCustomerInLogedIn = UserStorageService.isCustomerInLogedIn();
     console.log('isCustomerInLogedIn:', this.isCustomerInLogedIn);
-}
+  }
 
   logout() {
     console.log('logout function called');
     UserStorageService.signOut();
-    this.updateLoginStatus(); 
-    this.router.navigate(['']);
-    // this.updateLoginStatus();
+    this.router.navigate(['/login']);
+    this.updateLoginStatus();
   }
 }
