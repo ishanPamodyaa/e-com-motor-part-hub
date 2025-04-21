@@ -13,6 +13,7 @@ import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.c
 import { AddProductComponent } from './component/add-product/add-product.component';
 import { UserStorageService } from './service/storage/user-storage.service';
 import { HomeComponent } from "./component/home/home.component";
+import {PostCategoryComponent} from './component/dashboard-admin/post-catogery/post-category.component';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +31,9 @@ import { HomeComponent } from "./component/home/home.component";
     SingleProductComponent,
     ShoppingCartComponent,
     AddProductComponent,
-    HomeComponent
+    HomeComponent,
+    PostCategoryComponent
+
 ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],

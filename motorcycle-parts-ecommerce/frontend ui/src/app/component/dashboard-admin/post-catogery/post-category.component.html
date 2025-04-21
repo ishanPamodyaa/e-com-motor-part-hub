@@ -1,0 +1,63 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col text-end m-3 p-2">
+                <button class="btn btn-primary" data-bs-target="#categoryModal" data-bs-toggle="modal">
+                    Add Category
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-modal="true" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="categoryModalLabel">Add Category</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
+                        <div class="modal-body">
+                            <!-- Success Message -->
+                            <div class="alert alert-success" *ngIf="successMessage" role="alert">
+                                {{ successMessage }}
+                            </div>
+                            <!-- Error Message -->
+                            <div class="alert alert-danger" *ngIf="errorMessage" role="alert">
+                                {{ errorMessage }}
+                            </div>
+                            <div class="mb-3">
+                                <label for="categoryName" class="form-label">Category Name</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="categoryName"
+                                    formControlName="categoryName"
+                                    placeholder="Enter category name"
+                                    [ngClass]="{'is-invalid': categoryForm.get('categoryName')?.invalid && categoryForm.get('categoryName')?.touched}"
+                                    aria-describedby="categoryNameHelp">
+                                <div class="invalid-feedback" id="categoryNameHelp">
+                                    <span *ngIf="categoryForm.get('categoryName')?.errors?.['required']">
+                                        Category name is required
+                                    </span>
+                                    <span *ngIf="categoryForm.get('categoryName')?.errors?.['minlength']">
+                                        Category name must be at least 2 characters
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                [disabled]="categoryForm.invalid">
+                                Add Category
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

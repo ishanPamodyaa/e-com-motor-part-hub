@@ -21,7 +21,7 @@ export class UserStorageService {
     return localStorage.getItem(TOKEN) as string;
   }
   static getUser():any{
-    return JSON.parse(localStorage.getItem(USER) as string); 
+    return JSON.parse(localStorage.getItem(USER) as string);
   }
   static getUserId() : string{
 
@@ -42,16 +42,18 @@ export class UserStorageService {
 
   static isAdminInLogedIn():boolean{
 
-    if(this.getToken===null){
-      return false; 
+    if (this.getToken() === null) {
+      return false;
     }
+
     return this.getUserRole() === 'ADMIN';
   }
   static isCustomerInLogedIn():boolean{
 
-    if(this.getToken===null){
-      return false; 
+    if (this.getToken() === null) {
+      return false;
     }
+
     return this.getUserRole() === 'CUSTOMER';
   }
 

@@ -18,7 +18,6 @@ import { AuthService } from '../../service/auth/auth.service';
     FormsModule,
     NgForOf,
     NgIf,
-    // Add this import
   ],
   providers: [AuthService],
   templateUrl: './sign-up.component.html',
