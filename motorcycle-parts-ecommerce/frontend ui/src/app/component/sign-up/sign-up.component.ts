@@ -7,7 +7,7 @@ import {
   FormsModule,
 } from '@angular/forms';
 import { NgForOf, NgIf } from '@angular/common';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { AuthService } from '../../service/auth/auth.service';
 
 @Component({
@@ -18,6 +18,7 @@ import { AuthService } from '../../service/auth/auth.service';
     FormsModule,
     NgForOf,
     NgIf,
+    RouterLink,
   ],
   providers: [AuthService],
   templateUrl: './sign-up.component.html',
@@ -114,5 +115,9 @@ export class SignUpComponent {
   onProvinceChange() {
     const selectedProvince = this.signupForm.get('province')?.value;
     this.districts = this.provinceDistrict[selectedProvince] || [];
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
   }
 }

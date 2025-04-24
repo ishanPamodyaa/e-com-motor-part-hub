@@ -9,11 +9,10 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'login/signUp', component: SignUpComponent },
-  { path: 'signUp', component: SignUpComponent },
+  { path: 'signup', component: SignUpComponent },
   { path: 'category', component: PostCategoryComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'dashBoard', component:DashboardComponent},
+  // { path: 'dashBoard', component:DashboardComponent},
 
   { path: 'admin', component: AdminComponent }, // Add this line
   { path: '**', redirectTo: '/home' },
